@@ -3,22 +3,22 @@ use std::collections::*;
 pub fn day1() -> Option<()> {
     let input = parse();
 
-    let ans1 = part1(&input)?;
+    let ans1 = two_sum(&input, 2020)?;
     assert_eq!(ans1, 181044);
 
-    let ans2 = part2(&input)?;
+    let ans2 = three_sum(&input)?;
     assert_eq!(ans2, 82660352);
 
     Some(())
 }
 
-fn part1(input: &Vec<i64>) -> Option<i64> {
+fn two_sum(input: &Vec<i64>, target: i64) -> Option<i64> {
     let mut seen = HashSet::new();
 
     for n in input {
-        let target = 2020 - n;
-        if seen.contains(&target) {
-            return Some(n * target);
+        let to_find = target - n;
+        if seen.contains(&to_find) {
+            return Some(n * to_find);
         } else {
             seen.insert(n);
         }
@@ -27,17 +27,10 @@ fn part1(input: &Vec<i64>) -> Option<i64> {
     None
 }
 
-fn part2(input: &Vec<i64>) -> Option<i64> {
-    let mut seen = HashSet::new();
-
-    for i in 0..input.len() {
-        for j in i + 1..input.len() {
-            let target = 2020 - input[i] - input[j];
-            if seen.contains(&target) {
-                return Some(input[i] * input[j] * target);
-            } else {
-                seen.insert(input[i]);
-            }
+fn three_sum(input: &Vec<i64>) -> Option<i64> {
+    for i in input {
+        if let Some(n) = two_sum(input, 2020 - i) {
+            return Some(i * n);
         }
     }
 
