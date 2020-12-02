@@ -9,6 +9,9 @@ pub fn day1() -> Option<()> {
     let ans2 = three_sum(&input)?;
     assert_eq!(ans2, 82660352);
 
+    let ans3 = n_sum(&input, 3, 2020)?;
+    assert_eq!(ans3, 82660352);
+
     Some(())
 }
 
@@ -35,6 +38,20 @@ fn three_sum(input: &Vec<i64>) -> Option<i64> {
     }
 
     None
+}
+
+fn n_sum(input: &Vec<i64>, n: i64, target: i64) -> Option<i64> {
+    if n == 2 {
+        two_sum(input, target)
+    } else {
+        for i in input {
+            if let Some(n) = n_sum(input, n - 1, target - i) {
+                return Some(i * n);
+            }
+        }
+
+        None
+    }
 }
 
 fn parse() -> Vec<i64> {
