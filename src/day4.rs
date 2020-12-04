@@ -1,3 +1,4 @@
+use lazy_static::lazy_static;
 use regex::Regex;
 use std::collections::*;
 
@@ -8,7 +9,7 @@ pub fn day4() {
     assert_eq!(valid_passports.len(), 254);
 
     let count = validate(valid_passports);
-    dbg!(&count);
+    assert_eq!(count, 184);
 }
 
 fn find_valid(input: Vec<HashMap<String, String>>) -> Vec<HashMap<String, String>> {
@@ -57,8 +58,11 @@ fn validate_height(height: &str) -> bool {
 }
 
 fn validate_hair(color: &str) -> bool {
-    let re = Regex::new(r"^#[0-9a-f]{6}$").unwrap();
-    re.is_match(color)
+    lazy_static! {
+        static ref RE: Regex = Regex::new(r"^#[0-9a-f]{6}$").unwrap();
+    }
+
+    RE.is_match(color)
 }
 
 fn validate_eye(color: &str) -> bool {
