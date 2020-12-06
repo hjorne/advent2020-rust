@@ -48,9 +48,7 @@ fn count_all_yes(questions: &Vec<String>) -> usize {
 
 fn parse() -> Vec<Vec<String>> {
     let re = Regex::new(r"\n\n").unwrap();
-
     let input = std::fs::read_to_string("inputs/day6.txt").unwrap();
-
     re.split(&input)
         .map(|lines| lines.split_whitespace().map(|s| s.to_owned()).collect())
         .collect()
