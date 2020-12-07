@@ -21,7 +21,6 @@ fn part1(rules: &Rules) -> usize {
 }
 
 fn count_contained(target: &str, rules: &Rules) -> usize {
-    dbg!(&target);
     rules
         .get(target)
         .unwrap()
