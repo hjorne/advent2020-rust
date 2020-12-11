@@ -15,7 +15,7 @@ pub fn day1() -> Option<()> {
     Some(())
 }
 
-fn two_sum(input: &Vec<i64>, target: i64) -> Option<i64> {
+pub fn two_sum(input: &[i64], target: i64) -> Option<i64> {
     let mut seen = HashSet::new();
 
     for n in input {
